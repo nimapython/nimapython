@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+  {% if category %}
+    {{category.description|truncatewords:155}}
+  {% else %}
+    Welcome to ABC store where you can buy different items...
+  {% endif %}
+{% endblock %}
+
+{% block title %}
+  {% if category %}
+    {{category.name}}-ABC store
+  {% else %}
+    See new collections-ABC store
+  {% endif %}
+{% endblock %}
+<div class="main">
+{% block content %}
+
+  {% if category %}
+    <div class="row my_row_class">
+      <div class="mx_auto">
+        <p><a href="{% url 'ecommerceapp:allprodcat' %}">Our product collections</a> </p>
+      </div>
+    </div>
+  {% endif %}
+  <div class="my_auto">
+    {% if category %}
+      <img class="my_image" src="{{category.image.url}}" width="400" height="400" alt="{{category.name}}">
+  </div>
+<br>
+<div>
+  <h1 class="text-center my_title">{{category.name}}</h1>
+  <p class="text-justify">{{category.description}}</p>
+</div>
+{% else %}
+<div>
+  <img class="my_image my_image_padding" src="{% static 'img/banner.png' %}" width="1500" height="500" alt="our products">
+</div>
+<br>
+<div>
+  <h1 class="text-center my_titile">Our products collections</h1>
+  <p class="text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</div>
+{% endif %}
+<div class="container">
+  <div class="row mx_auto">
+    {% for products in products.object_list %}
+    <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+      <div class="card text_center" style="min-width:18rem;">
+        <a href="{{products.get_url}}"><img class="card-img-top my_image" src="{{products.image.url}}" width="200" height="200" alt="{{products.name}}" ></a>
+        <div class="card-body">
+          <h4>{{products.name}}</h4>
+          <p>{{products.price}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="mx_auto">
+    {% if products.paginator.num_pages > 1 %}
+    <hr>
+    <div class="text-center">
+      {% for pg in products.paginator.page_range %}
+      <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <br>
+</div>
+{% endblock %}
+  </div>
