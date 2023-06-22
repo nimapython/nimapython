@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <center>
+<h1><b>Complete the Form</b></h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Name"><br>
+    <input type="text" name="dob" placeholder="Date of Birth"><br>
+    <input type="text" name="age" placeholder="Age"><br>
+     Gender <input type="radio" name="f">F<input type="radio" name="m">M<br>
+
+      <input type="text" name="phn" placeholder="Ph no"><br>
+      <input type="email" name="email" placeholder="Email"><br>
+      <input type="text" name="add" placeholder="Address"><br>
+    <select name="department" id="cars">
+        <option value="department">department</option>
+        <option value="computer science">Computer Science</option>
+        <option value="biology science">Biology Science</option>
+        <option value="commerce">Commerce</option>
+        <option value="humanities">Humanities</option>
+        <option value="stati">Statistics</option>
+    </select><br>
+<!--      <input type="text" name="dep" placeholder="Department"><br>-->
+      <input type="text" name="course" placeholder="Courses"><br>
+    <input type="text" name="purpose" placeholder="Purpose"><br>
+    <input type="text" name="mprovide" placeholder="Material Provide"><br>
+    <input type="submit"><br>
+</form>
+    </center>
+</body>
+</html>
