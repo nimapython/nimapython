@@ -1,0 +1,29 @@
+{% extends 'admin/aindex.html' %}
+{% block body %}
+<div class="container">
+    <h3>Sellers</h3>
+    <div class="table-responsive">
+        <table class="table bg-light p-5 m-3">
+            <thead>
+                <tr>
+                    <th scope="col">Seller Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for seller in sellers %}
+                <tr>
+                    <th>{{ seller.name }}</th>
+                    <th>{{ seller.email }}</th>
+                 
+                    <th><a href="{% url 'delete' seller.id %}" class="btn btn-danger">Delete</a></th>
+             
+                 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

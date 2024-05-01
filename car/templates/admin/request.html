@@ -1,0 +1,56 @@
+{% extends 'admin/aindex.html' %}
+{% block body %}
+<div class="container">
+    <h3>Requests</h3>
+    <div class="table-responsive">
+        <table class="table bg-light p-5 m-3">
+            <thead>
+                <tr>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Car Name</th>
+                    <th scope="col">Seller</th>
+                    <th scope="col">Mileage</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Registration Year</th>
+                    <th scope="col">Registration Number</th>
+                    <th scope="col">Engine Capacity</th>
+                    <th scope="col">Insurance</th>
+                    <th scope="col">Spare Key</th>
+                    <th scope="col">Transmission</th>
+                    <th scope="col">Fuel Type</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Approve</th>
+                    <th scope="col">Reject</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                <tr>
+                    <th>{{ car.brand }}</th>
+                    <th>{{ car.name }}</th>
+                    <th>{{ car.seller.username }}</th>
+                    <th>{{ car.mileage }}</th>
+                    <th>{{ car.price }}</th>
+                    <th>{{ car.location }}</th>
+                    <th>{{ car.registration_year }}</th>
+                    <th>{{ car.registration_number }}</th>
+                    <th>{{ car.engine_capacity }}</th>
+                    <th>{{ car.insurance }}</th>
+                    <th>{{ car.spare_key }}</th>
+                    <th>{{ car.transmission }}</th>
+                    <th>{{ car.fuel_type }}</th>
+                    <th><a href="{{ car.imageURL }}">{{ car.imageURL }}</a></th>
+                    <th><a href="{% url 'approve' car.id %}" class="btn btn-success">Approve</a></th>
+                    {% if car.is_rejected %}
+                    <th><a href="{% url 'reject' car.id %}" class="btn btn-danger">Rejected</a></th>
+                    {% else %}
+                    <th><a href="{% url 'reject' car.id %}" class="btn btn-danger">Reject</a></th>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

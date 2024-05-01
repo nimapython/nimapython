@@ -1,0 +1,30 @@
+{% extends 'admin/aindex.html' %}
+{% block body %}
+<div class="container">
+    <h3>Complaints</h3>
+    <div class="table-responsive">
+        <table class="table bg-light p-5 m-3">
+            <thead>
+                <tr>
+                  <th scope="col">Customer Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Complaint</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                  {% for complaint in complaints %}
+                <tr>
+                  <th>{{ complaint.user.name }}</th>
+                  <th>{{ complaint.user.email }}</th>
+                  <th>{{ complaint.complaint }}</th>
+                  
+                </tr>
+               
+                {% endfor %}
+                
+              </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
