@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqua Alert</title>
+    <link rel="icon" href="static/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            height: 100%;
+            margin: 0;
+        }
+
+        @media (max-width: 767px) {
+            .img-fluid {
+                width: 40%;
+            }
+
+            td img {
+                width: 30%;
+            }
+        }
+
+        @media (max-width: 1440px) {
+            .img-fluid {
+                width: 20%;
+            }
+
+            td img {
+                width: 25%;
+            }
+        }
+
+        #content {
+            min-height: 100%;
+            margin-bottom: -100px;
+            padding-bottom: 100px;
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 15px 15px 0px 0px;
+        }
+
+        .footer-icon {
+            margin: 0 5px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" class="container mt-4">
+        <div class="row">
+            <div class="col-lg col-md col-sm col m-1">
+                <h2 class="lineUp">Settings</h2>
+                <h5 class="lineUp2">Units</h5>
+                <div class="card bg-dark rounded-4 text-white">
+                    <div class="row p-3">
+                        <h6>Temperature</h6>
+                        <div class="d-flex">
+                            <span class="badge rounded-pill text-bg-warning badge-lg">{{ thingspeak_data.temperature }}°C</span>
+                            <button id="toggleTempUnitBtn" class="btn btn-secondary btn-sm ms-2">Toggle Unit</button>
+
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <h6>Water level</h6>
+                        <div class="d-flex">
+                            
+                            <span class="badge rounded-pill text-bg-warning badge-lg water-level-badge">{{ thingspeak_data.water_level }}cm</span>
+                            <button id="toggleWaterLevelUnitBtn" class="btn btn-secondary btn-sm ms-2">Toggle Unit</button>
+
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <h6>Atmospheric Pressure</h6>
+                        <div class="d-flex">
+                            <span class="badge rounded-pill text-bg-warning m-1">{{ thingspeak_data.pressure }}Pa</span>
+                            <button id="togglePressureUnitBtn" class="btn btn-secondary btn-sm ms-2">Toggle Unit</button>
+
+                        </div>
+                    </div>
+                    <div class="row p-3 ">
+                        <h6>Humidity</h6>
+                        <div class="d-flex">
+                            <span class="badge rounded-pill text-bg-warning badge-lg">{{ thingspeak_data.humidity }}%</span>
+                            
+                        </div>
+                    </div>
+                  
+                </div>                 
+            </div>
+        </div>  
+                
+       
+    </div>
+    <div id="footer">
+        <!-- Footer content goes here -->
+        <div class="row">
+            <!-- <div class="col-lg col-md col-sm col ">
+                <a href="{{ url_for('floodalert') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-cloud-sun-fill"></i></span></a>
+            </div> -->
+            <div class="col-lg col-md col-sm col">
+                <a href="{{ url_for('floodalert') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-list-ul"></i></span></a>
+            </div>
+            <div class="col-lg col-md col-sm col ">
+                <a href="{{ url_for('feedback') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-envelope-fill"></i></span></a>
+            </div>
+            <div class="col-lg col-md col-sm col">
+               <a href="{{ url_for('dashboard') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-map-fill"></i></span></a> 
+            </div>
+            <div class="col-lg col-md col-sm col">
+                <a href="{{ url_for('alert') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-exclamation-lg col-md col-sm col"></i></span></a>
+            </div>
+            <div class="col-lg col-md col-sm col">
+                <a href="{{ url_for('setting') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-sliders"></i></span></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+    <script>
+        const toggleTempUnitBtn = document.getElementById('toggleTempUnitBtn');
+        const toggleWaterLevelUnitBtn = document.getElementById('toggleWaterLevelUnitBtn');
+        const togglePressureUnitBtn = document.getElementById('togglePressureUnitBtn');
+    
+        let isCelsius = true;
+        let isCm = true;
+    
+        toggleTempUnitBtn.addEventListener('click', () => {
+            const temperatureElement = document.querySelector('.badge.text-bg-warning');
+            if (isCelsius) {
+                const currentTemperature = parseFloat(temperatureElement.innerText);
+                const fahrenheitTemperature = (currentTemperature * 9/5) + 32;
+                temperatureElement.innerText = `${fahrenheitTemperature.toFixed(2)}°F`;
+                toggleTempUnitBtn.innerText = "Switch to Celsius";
+                isCelsius = false;
+            } else {
+                const currentTemperature = parseFloat(temperatureElement.innerText);
+                const celsiusTemperature = (currentTemperature - 32) * 5/9;
+                temperatureElement.innerText = `${celsiusTemperature.toFixed(2)}°C`;
+                toggleTempUnitBtn.innerText = "Switch to Fahrenheit";
+                isCelsius = true;
+            }
+        });
+
+        toggleWaterLevelUnitBtn.addEventListener('click', () => {
+            const waterLevelElement = document.querySelector('.water-level-badge');
+            if (isCm) {
+                const currentWaterLevel = parseFloat(waterLevelElement.innerText);
+                const meterWaterLevel = currentWaterLevel / 100;
+                waterLevelElement.innerText = `${meterWaterLevel.toFixed(2)}m`;
+                toggleWaterLevelUnitBtn.innerText = "Switch to cm";
+                isCm = false;
+            } else {
+                const currentWaterLevel = parseFloat(waterLevelElement.innerText);
+                const cmWaterLevel = currentWaterLevel * 100;
+                waterLevelElement.innerText = `${cmWaterLevel.toFixed(2)}cm`;
+                toggleWaterLevelUnitBtn.innerText = "Switch to m";
+                isCm = true;
+            }
+        });
+        
+
+        togglePressureUnitBtn.addEventListener('click', () => {
+            const pressureElement = document.querySelector('.badge.m-1');
+            if (isCm) {
+                const currentPressure = parseFloat(pressureElement.innerText);
+                const atmPressure = currentPressure / 101325;
+                pressureElement.innerText = `${atmPressure.toFixed(6)} atm`;
+                togglePressureUnitBtn.innerText = "Switch to Pa";
+                isCm = false;
+            } else {
+                const currentPressure = parseFloat(pressureElement.innerText);
+                const paPressure = currentPressure * 101325;
+                pressureElement.innerText = `${paPressure.toFixed(2)} Pa`;
+                togglePressureUnitBtn.innerText = "Switch to atm";
+                isCm = true;
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

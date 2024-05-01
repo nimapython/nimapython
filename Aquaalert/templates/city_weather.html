@@ -1,0 +1,40 @@
+<style>
+    .container-box {
+        backdrop-filter: blur(12px); 
+         /* box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;  */
+         /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;   */
+        border-radius:15px ;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;  
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<div class="container-box w-50 mt-3 mx-auto text-center">
+    {% if weather_data %}
+    <h1 class="text-center text-dark"style="text-transform: capitalize;">{{weather_data.city}}</h1>
+   
+    <h2 class="text-center text-dark">{{weather_data.temperature}} ℃</h2>
+    <h3  class="text-center text-dark" style="text-transform: capitalize; ">{{weather_data.description}}</h3>
+    <img class="text-center d-block mx-auto" src="http://openweathermap.org/img/w/{{ weather_data.icon }}.png" alt="weather_data.description" height="150"
+    width="150">
+    
+    {% endif %}
+</div>
+{% if daily_forecasts %}
+<h2>5-Day Forecasts</h2>
+<div class="forecast-container">
+    {% for forecast in daily_forecasts %}
+    <div class="forecast">
+        <h3>{{ forecast.day }}</h3>
+        <p>{{ forecast.min_temp}} -{{forecast.max_temp}}</p>
+        <p>{{forecast.description }}</p>
+        <img src="http://openweathermap.org/img/w/{{ forecast.icon }}.png" alt="forecast.description">
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="static/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+         body {
+            background-color: black;
+            color: white;
+            height: 100%;
+            margin: 0;
+        }
+
+        @media (max-width: 767px) {
+            .img-fluid {
+                width: 40%;
+            }
+
+            td img {
+                width: 30%;
+            }
+        }
+
+        @media (max-width: 1440px) {
+            .img-fluid {
+                width: 20%;
+            }
+
+            td img {
+                width: 25%;
+            }
+        }
+
+        #content {
+            min-height: 100%;
+            margin-bottom: -100px;
+            padding-bottom: 100px;
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 15px 15px 0px 0px;
+        }
+
+        .footer-icon {
+            margin: 0 5px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body style="background-color: black; color: aliceblue;">
+   <h2 style="color: darkgoldenrod;" class="text-center">Floods: Do's & Don'ts</h2> <br>
+
+<div class="container col-md-8" >
+    <h3>What to do before a flood</h3>
+<h4>To prepare for a flood, you should:</h4>
+<ul>
+<li>Avoid building in flood prone areas unless you elevate and reinforce your home.
+Elevate the furnace, water heater, and electric panel if susceptible to flooding.
+Install "Check Valves" in sewer traps to prevent floodwater from backing up into the drains of your home.
+Contact community officials to find out if they are planning to construct barriers (levees, beams and floodwalls) to stop floodwater from entering the homes in your area.
+Seal the walls in your basement with waterproofing compounds to avoid seepage.
+</li><br>
+
+<h4>If a flood is likely to hit  your area, you should:</h4><br>
+
+<li>Listen to the radio or television for information.
+Be aware that flash flooding can occur. If there is any possibility of a flash flood, move immediately to higher ground. Do not wait for instructions to move.
+Be aware of streams, drainage channels, canyons, and other areas known to flood suddenly. Flash floods can occur in these areas with or without such typical warnings as rain clouds or heavy rain.
+</li><br>
+<h4>If you must prepare to evacuate, you should:</h4>
+<li>
+Secure your home. If you have time, bring in outdoor furniture. Move essential items to an upper floor.
+Turn off utilities at the main switches or valves if instructed to do so. Disconnect electrical appliances. Do not touch electrical equipment if you are wet or standing in water.
+</li><br>
+<h4>If you have to leave your home, remember these evacuation tips:</h4>
+<li>
+Do not walk through moving water. Six inches of moving water can make you fall. If you have to walk in water, walk where the water is not moving. Use a stick to check the firmness of the ground in front of you.
+Do not drive into flooded areas. If floodwaters rise around your car, abandon the car and move to higher ground if you can do so safely. You and the vehicle can be quickly swept away.
+</li><br>
+</ul>
+</div>
+<div id="footer">
+    <!-- Footer content goes here -->
+    <div class="row">
+        
+        <div class="col-lg col-md col-sm col">
+            <a href="{{ url_for('floodalert') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-list-ul"></i></span></a>
+        </div>
+        <div class="col-lg col-md col-sm col ">
+            <a href="{{ url_for('feedback') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-envelope-fill"></i></span></a>
+        </div>
+        <div class="col-lg col-md col-sm col">
+           <a href="{{ url_for('dashboard') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-map-fill"></i></span></a> 
+        </div>
+        <div class="col-lg col-md col-sm col">
+            <a href="{{ url_for('alert') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-exclamation-lg col-md col-sm col"></i></span></a>
+        </div>
+        <div class="col-lg col-md col-sm col">
+            <a href="{{ url_for('setting') }}" style="color: white;"><span class="footer-icon"><i class="bi bi-sliders"></i></span></a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('csrf_token').value = '{{ csrf_token() }}';
+    </script>
+</body>
+</html>
